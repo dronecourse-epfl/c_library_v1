@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <mavlink>
-    <!--<include>common.xml</include>-->
+    <include>common.xml</include>
         <!-- NOTE: If the included file already contains a version tag, remove the version tag here, else uncomment to enable. -->
 	<!--<version>3</version>-->
 	<enums>
@@ -11,9 +11,6 @@
 			<field type="float" name="x">X Position in NED frame in meters</field>
 			<field type="float" name="y">Y Position in NED frame in meters</field>
 			<field type="float" name="z">Z Position in NED frame in meters</field>
-			<field type="float" name="vx">X velocity in NED frame in meter / s</field>
-			<field type="float" name="vy">Y velocity in NED frame in meter / s</field>
-			<field type="float" name="vz">Z velocity in NED frame in meter / s</field>
 			<field type="uint8_t" name="target_num">ID of the target object.</field>
 		</message>
 		<message id="151" name="TARGET_POSITION_NED_FILTERED">
@@ -21,9 +18,15 @@
 			<field type="float" name="x">X Position in NED frame in meters</field>
 			<field type="float" name="y">Y Position in NED frame in meters</field>
 			<field type="float" name="z">Z Position in NED frame in meters</field>
-			<field type="float" name="vx">X velocity in NED frame in meter / s</field>
-			<field type="float" name="vy">Y velocity in NED frame in meter / s</field>
-			<field type="float" name="vz">Z velocity in NED frame in meter / s</field>
+			<field type="float" name="vx">X Velocity in NED frame in meters/s</field>
+			<field type="float" name="vy">Y Velocity in NED frame in meters/s</field>
+			<field type="float" name="vz">Z Velocity in NED frame in meters/s</field>
+			<field type="float" name="var_x">X Position variance in NED frame in meters^2</field>
+			<field type="float" name="var_y">Y Position variance in NED frame in meters^2</field>
+			<field type="float" name="var_z">Z Position variance in NED frame in meters^2</field>
+			<field type="float" name="var_vx">X Velocity variance in NED frame in (meters/s)^2</field>
+			<field type="float" name="var_vy">X Velocity variance in NED frame in (meters/s)^2</field>
+			<field type="float" name="var_vz">X Velocity variance in NED frame in (meters/s)^2</field>
 			<field type="uint8_t" name="target_num">ID of the target object.</field>
 		</message>
 	</messages>
