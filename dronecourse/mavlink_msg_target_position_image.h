@@ -13,7 +13,7 @@ typedef struct __mavlink_target_position_image_t {
  float yaw; /*<  Yaw from body to camera frame*/
  float var_u; /*<  variance of u*/
  float var_v; /*<  variance of v*/
- float var_z; /*<  variance of dist*/
+ float var_dist; /*<  variance of dist*/
  uint8_t target_num; /*< ID of the target object.*/
 }) mavlink_target_position_image_t;
 
@@ -22,8 +22,8 @@ typedef struct __mavlink_target_position_image_t {
 #define MAVLINK_MSG_ID_152_LEN 41
 #define MAVLINK_MSG_ID_152_MIN_LEN 41
 
-#define MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_CRC 203
-#define MAVLINK_MSG_ID_152_CRC 203
+#define MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_CRC 249
+#define MAVLINK_MSG_ID_152_CRC 249
 
 
 
@@ -40,7 +40,7 @@ typedef struct __mavlink_target_position_image_t {
          { "yaw", NULL, MAVLINK_TYPE_FLOAT, 0, 24, offsetof(mavlink_target_position_image_t, yaw) }, \
          { "var_u", NULL, MAVLINK_TYPE_FLOAT, 0, 28, offsetof(mavlink_target_position_image_t, var_u) }, \
          { "var_v", NULL, MAVLINK_TYPE_FLOAT, 0, 32, offsetof(mavlink_target_position_image_t, var_v) }, \
-         { "var_z", NULL, MAVLINK_TYPE_FLOAT, 0, 36, offsetof(mavlink_target_position_image_t, var_z) }, \
+         { "var_dist", NULL, MAVLINK_TYPE_FLOAT, 0, 36, offsetof(mavlink_target_position_image_t, var_dist) }, \
          { "target_num", NULL, MAVLINK_TYPE_UINT8_T, 0, 40, offsetof(mavlink_target_position_image_t, target_num) }, \
          } \
 }
@@ -56,7 +56,7 @@ typedef struct __mavlink_target_position_image_t {
          { "yaw", NULL, MAVLINK_TYPE_FLOAT, 0, 24, offsetof(mavlink_target_position_image_t, yaw) }, \
          { "var_u", NULL, MAVLINK_TYPE_FLOAT, 0, 28, offsetof(mavlink_target_position_image_t, var_u) }, \
          { "var_v", NULL, MAVLINK_TYPE_FLOAT, 0, 32, offsetof(mavlink_target_position_image_t, var_v) }, \
-         { "var_z", NULL, MAVLINK_TYPE_FLOAT, 0, 36, offsetof(mavlink_target_position_image_t, var_z) }, \
+         { "var_dist", NULL, MAVLINK_TYPE_FLOAT, 0, 36, offsetof(mavlink_target_position_image_t, var_dist) }, \
          { "target_num", NULL, MAVLINK_TYPE_UINT8_T, 0, 40, offsetof(mavlink_target_position_image_t, target_num) }, \
          } \
 }
@@ -76,12 +76,12 @@ typedef struct __mavlink_target_position_image_t {
  * @param yaw  Yaw from body to camera frame
  * @param var_u  variance of u
  * @param var_v  variance of v
- * @param var_z  variance of dist
+ * @param var_dist  variance of dist
  * @param target_num ID of the target object.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_target_position_image_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint64_t time_usec, uint32_t u, uint32_t v, float dist, float pitch, float yaw, float var_u, float var_v, float var_z, uint8_t target_num)
+                               uint64_t time_usec, uint32_t u, uint32_t v, float dist, float pitch, float yaw, float var_u, float var_v, float var_dist, uint8_t target_num)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_LEN];
@@ -93,7 +93,7 @@ static inline uint16_t mavlink_msg_target_position_image_pack(uint8_t system_id,
     _mav_put_float(buf, 24, yaw);
     _mav_put_float(buf, 28, var_u);
     _mav_put_float(buf, 32, var_v);
-    _mav_put_float(buf, 36, var_z);
+    _mav_put_float(buf, 36, var_dist);
     _mav_put_uint8_t(buf, 40, target_num);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_LEN);
@@ -107,7 +107,7 @@ static inline uint16_t mavlink_msg_target_position_image_pack(uint8_t system_id,
     packet.yaw = yaw;
     packet.var_u = var_u;
     packet.var_v = var_v;
-    packet.var_z = var_z;
+    packet.var_dist = var_dist;
     packet.target_num = target_num;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_LEN);
@@ -131,13 +131,13 @@ static inline uint16_t mavlink_msg_target_position_image_pack(uint8_t system_id,
  * @param yaw  Yaw from body to camera frame
  * @param var_u  variance of u
  * @param var_v  variance of v
- * @param var_z  variance of dist
+ * @param var_dist  variance of dist
  * @param target_num ID of the target object.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_target_position_image_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint64_t time_usec,uint32_t u,uint32_t v,float dist,float pitch,float yaw,float var_u,float var_v,float var_z,uint8_t target_num)
+                                   uint64_t time_usec,uint32_t u,uint32_t v,float dist,float pitch,float yaw,float var_u,float var_v,float var_dist,uint8_t target_num)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_LEN];
@@ -149,7 +149,7 @@ static inline uint16_t mavlink_msg_target_position_image_pack_chan(uint8_t syste
     _mav_put_float(buf, 24, yaw);
     _mav_put_float(buf, 28, var_u);
     _mav_put_float(buf, 32, var_v);
-    _mav_put_float(buf, 36, var_z);
+    _mav_put_float(buf, 36, var_dist);
     _mav_put_uint8_t(buf, 40, target_num);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_LEN);
@@ -163,7 +163,7 @@ static inline uint16_t mavlink_msg_target_position_image_pack_chan(uint8_t syste
     packet.yaw = yaw;
     packet.var_u = var_u;
     packet.var_v = var_v;
-    packet.var_z = var_z;
+    packet.var_dist = var_dist;
     packet.target_num = target_num;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_LEN);
@@ -183,7 +183,7 @@ static inline uint16_t mavlink_msg_target_position_image_pack_chan(uint8_t syste
  */
 static inline uint16_t mavlink_msg_target_position_image_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_target_position_image_t* target_position_image)
 {
-    return mavlink_msg_target_position_image_pack(system_id, component_id, msg, target_position_image->time_usec, target_position_image->u, target_position_image->v, target_position_image->dist, target_position_image->pitch, target_position_image->yaw, target_position_image->var_u, target_position_image->var_v, target_position_image->var_z, target_position_image->target_num);
+    return mavlink_msg_target_position_image_pack(system_id, component_id, msg, target_position_image->time_usec, target_position_image->u, target_position_image->v, target_position_image->dist, target_position_image->pitch, target_position_image->yaw, target_position_image->var_u, target_position_image->var_v, target_position_image->var_dist, target_position_image->target_num);
 }
 
 /**
@@ -197,7 +197,7 @@ static inline uint16_t mavlink_msg_target_position_image_encode(uint8_t system_i
  */
 static inline uint16_t mavlink_msg_target_position_image_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_target_position_image_t* target_position_image)
 {
-    return mavlink_msg_target_position_image_pack_chan(system_id, component_id, chan, msg, target_position_image->time_usec, target_position_image->u, target_position_image->v, target_position_image->dist, target_position_image->pitch, target_position_image->yaw, target_position_image->var_u, target_position_image->var_v, target_position_image->var_z, target_position_image->target_num);
+    return mavlink_msg_target_position_image_pack_chan(system_id, component_id, chan, msg, target_position_image->time_usec, target_position_image->u, target_position_image->v, target_position_image->dist, target_position_image->pitch, target_position_image->yaw, target_position_image->var_u, target_position_image->var_v, target_position_image->var_dist, target_position_image->target_num);
 }
 
 /**
@@ -212,12 +212,12 @@ static inline uint16_t mavlink_msg_target_position_image_encode_chan(uint8_t sys
  * @param yaw  Yaw from body to camera frame
  * @param var_u  variance of u
  * @param var_v  variance of v
- * @param var_z  variance of dist
+ * @param var_dist  variance of dist
  * @param target_num ID of the target object.
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_target_position_image_send(mavlink_channel_t chan, uint64_t time_usec, uint32_t u, uint32_t v, float dist, float pitch, float yaw, float var_u, float var_v, float var_z, uint8_t target_num)
+static inline void mavlink_msg_target_position_image_send(mavlink_channel_t chan, uint64_t time_usec, uint32_t u, uint32_t v, float dist, float pitch, float yaw, float var_u, float var_v, float var_dist, uint8_t target_num)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_LEN];
@@ -229,7 +229,7 @@ static inline void mavlink_msg_target_position_image_send(mavlink_channel_t chan
     _mav_put_float(buf, 24, yaw);
     _mav_put_float(buf, 28, var_u);
     _mav_put_float(buf, 32, var_v);
-    _mav_put_float(buf, 36, var_z);
+    _mav_put_float(buf, 36, var_dist);
     _mav_put_uint8_t(buf, 40, target_num);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE, buf, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_MIN_LEN, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_LEN, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_CRC);
@@ -243,7 +243,7 @@ static inline void mavlink_msg_target_position_image_send(mavlink_channel_t chan
     packet.yaw = yaw;
     packet.var_u = var_u;
     packet.var_v = var_v;
-    packet.var_z = var_z;
+    packet.var_dist = var_dist;
     packet.target_num = target_num;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE, (const char *)&packet, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_MIN_LEN, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_LEN, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_CRC);
@@ -258,7 +258,7 @@ static inline void mavlink_msg_target_position_image_send(mavlink_channel_t chan
 static inline void mavlink_msg_target_position_image_send_struct(mavlink_channel_t chan, const mavlink_target_position_image_t* target_position_image)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_target_position_image_send(chan, target_position_image->time_usec, target_position_image->u, target_position_image->v, target_position_image->dist, target_position_image->pitch, target_position_image->yaw, target_position_image->var_u, target_position_image->var_v, target_position_image->var_z, target_position_image->target_num);
+    mavlink_msg_target_position_image_send(chan, target_position_image->time_usec, target_position_image->u, target_position_image->v, target_position_image->dist, target_position_image->pitch, target_position_image->yaw, target_position_image->var_u, target_position_image->var_v, target_position_image->var_dist, target_position_image->target_num);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE, (const char *)target_position_image, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_MIN_LEN, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_LEN, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_CRC);
 #endif
@@ -272,7 +272,7 @@ static inline void mavlink_msg_target_position_image_send_struct(mavlink_channel
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_target_position_image_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, uint32_t u, uint32_t v, float dist, float pitch, float yaw, float var_u, float var_v, float var_z, uint8_t target_num)
+static inline void mavlink_msg_target_position_image_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, uint32_t u, uint32_t v, float dist, float pitch, float yaw, float var_u, float var_v, float var_dist, uint8_t target_num)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -284,7 +284,7 @@ static inline void mavlink_msg_target_position_image_send_buf(mavlink_message_t 
     _mav_put_float(buf, 24, yaw);
     _mav_put_float(buf, 28, var_u);
     _mav_put_float(buf, 32, var_v);
-    _mav_put_float(buf, 36, var_z);
+    _mav_put_float(buf, 36, var_dist);
     _mav_put_uint8_t(buf, 40, target_num);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE, buf, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_MIN_LEN, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_LEN, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_CRC);
@@ -298,7 +298,7 @@ static inline void mavlink_msg_target_position_image_send_buf(mavlink_message_t 
     packet->yaw = yaw;
     packet->var_u = var_u;
     packet->var_v = var_v;
-    packet->var_z = var_z;
+    packet->var_dist = var_dist;
     packet->target_num = target_num;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE, (const char *)packet, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_MIN_LEN, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_LEN, MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_CRC);
@@ -392,11 +392,11 @@ static inline float mavlink_msg_target_position_image_get_var_v(const mavlink_me
 }
 
 /**
- * @brief Get field var_z from target_position_image message
+ * @brief Get field var_dist from target_position_image message
  *
  * @return  variance of dist
  */
-static inline float mavlink_msg_target_position_image_get_var_z(const mavlink_message_t* msg)
+static inline float mavlink_msg_target_position_image_get_var_dist(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg,  36);
 }
@@ -428,7 +428,7 @@ static inline void mavlink_msg_target_position_image_decode(const mavlink_messag
     target_position_image->yaw = mavlink_msg_target_position_image_get_yaw(msg);
     target_position_image->var_u = mavlink_msg_target_position_image_get_var_u(msg);
     target_position_image->var_v = mavlink_msg_target_position_image_get_var_v(msg);
-    target_position_image->var_z = mavlink_msg_target_position_image_get_var_z(msg);
+    target_position_image->var_dist = mavlink_msg_target_position_image_get_var_dist(msg);
     target_position_image->target_num = mavlink_msg_target_position_image_get_target_num(msg);
 #else
         uint8_t len = msg->len < MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_LEN? msg->len : MAVLINK_MSG_ID_TARGET_POSITION_IMAGE_LEN;
